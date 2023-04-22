@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Spotify Authorization</title>
+  </head>
+  <body>
+    <button id="authorize">Authorize with Spotify</button>
+    <script>
+      const clientId = '9fada4d27f3b4bd383a51b65685850a1';
+      const redirectUri = 'https://skelet0r420.github.io/';
+      const scopes = ['user-read-email', 'user-read-private'];
+      
+      // Helper function to parse the query string from the redirect URI
+      const getParamsFromHash = () => {
+        const hash = window.location.hash.substr(1);
+        return hash.split('&').reduce((result, item) => {
+          const parts = item.split('=');
+          result[parts[0]] = decodeURIComponent(parts[1]);
+          return result;
+        }, {});
+      };
+      
+      // Check if we have an access token in the URL fragment
+      const params = getParamsFromHash();
+      if (params.access_token) {
+        // Store the access token and redirect back to the main page
+        localStorage.setItem('spotifyAccessToken', params.access_token);
+        window.location.href = redirectUri;
+      }
+      
+      // When the user clicks the authorize button, redirect to the Spotify login page
+      document.getElementById('authorize').addEventListener('click', () => {
+        const url = 'https://accounts.spotify.com/authorize' +
+          `?client_id=${clientId}` +
+          `&response_type=token` +
+          `&redirect_uri=${encodeURIComponent(redirectUri)}` +
+          `&scope=${encodeURIComponent(scopes.join(' '))}`;
+        
+        window.location.href = url;
+      });
+    </script>
+  </body>
+</html>
