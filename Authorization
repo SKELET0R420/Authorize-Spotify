@@ -7,7 +7,7 @@
     <button id="authorize">Authorize with Spotify</button>
     <script>
       const clientId = '9fada4d27f3b4bd383a51b65685850a1';
-      const redirectUri = 'https://skelet0r420.github.io/';
+      const redirectUri = 'https://github.com/SKELET0R420/Authorize-Spotify/';
       const scopes = ['user-read-email', 'user-read-private'];
       
       // Helper function to parse the query string from the redirect URI
